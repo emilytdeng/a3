@@ -23,6 +23,7 @@ WebBrowser.maybeCompleteAuthSession();
 
 const formatter = (data) => data.map((val) => {
   const artists = val.artists?.map((artist) => ({ name: artist.name }));
+  //console.log(artists.artist.name)
   // returning undefined for now to not confuse students, ideally a fix would be a hosted version of this
   return ({
     songTitle: val.name,
