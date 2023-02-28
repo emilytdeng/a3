@@ -1,19 +1,25 @@
 import { Themes } from "../assets/Themes";
-import { StyleSheet, Text, Image, View } from "react-native";
+import { StyleSheet, Text, Image, View, Pressable } from "react-native";
 import { millisToMinutesAndSeconds } from "../utils";
-import { SongArtist } from "./SongArtist"
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { useNavigation } from "@react-navigation/native";
 
-const SongItem = ({item, index}) => {
+
+const SongItem = ({item}) => {
     //console.log(item.SongArtist[0].name);
+    const navigation = useNavigation();
 
     return (
         <View style={styles.songContainer}>  
-            <Text style={styles.indexText}>{index}</Text>
+            <Pressable onPress={() => navigation.navigate('PreviewScreen', {previewUrl: item.previewUrl})}>
+                <Ionicons style={styles.playButton} name="play-circle" size={30}></Ionicons>
+            </Pressable>
+            
             <Image style={styles.image} source={ {uri: item.imageUrl} } />
             <View style={styles.titleArtist}>
                 <Text numberOfLines={1} style={styles.titleText}>{item.songTitle}</Text>
                 {/* why doens't {item.songArtist[0].name} work} */ }
-                <Text numberOfLines={1} style={styles.artistText}>{item.songArtist}</Text>
+                <Text numberOfLines={1} style={styles.artistText}>{item.songArtists[0].name}</Text>
             </View>
             
             <Text numberOfLines={1} style={styles.albumText}>{item.albumName}</Text>
@@ -34,19 +40,18 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingLeft: 10
     },
-    indexText: {
-        color: 'white',
+    playButton: {
+        color: 'green',
         paddingRight: 10,
-        with: '5%',
     },
     image: {
         aspectRatio: 1,
-        width: '15%',
+        width: '12%',
         padding: 8,
         resizeMode: 'contain'
     },
     titleArtist: {   
-        width: '40%',
+        width: '38%',
         paddingLeft: 10,
     },
     titleText: {

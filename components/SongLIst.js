@@ -1,26 +1,27 @@
-import { FlatList, InteractionManager, Text, StyleSheet } from "react-native";
+import { FlatList, InteractionManager, Text, StyleSheet, Pressable } from "react-native";
 import { ScrollView } from "react-native";
 import SongItem from "./SongItem";
+import { useNavigation } from "@react-navigation/native";
 
 const SongList = ({tracks}) => {
+    const navigation = useNavigation();
+
     return (
-        //<View>
-        //<ScrollView style={styles.scrollView}>
-        <FlatList
-            data={tracks}
-            renderItem={({ item, index }) => (
-                <SongItem 
-                item={item}
-                index={index}
-                />
-        )}
-        />
-       // </ScrollView>
-        //</View>
+        //<ScrollView>
+            <FlatList
+                data={tracks}
+                renderItem={({ item, index }) => (
+                    <Pressable onPress={()=> navigation.navigate('DetailsScreen', {externalUrl: item.externalUrl})}>
+                        <SongItem 
+                            item={item}
+                            index={index}
+                        />
+                    </Pressable>
+                )}
+            />
+        //</ScrollView>
        
     )
 }
-
-
 
 export default SongList;
